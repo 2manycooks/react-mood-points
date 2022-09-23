@@ -21,19 +21,36 @@ export default class MoodTracker extends Component {
     
     // in order to change state, we must use the setState() method.
     // there are multiple ways to utilize setState, we will be using a callback function.
+
+    checkMood = () => {
+        if(this.state.moodPoints >= 5) {
+            this.setState({
+                isHappy: true
+            })
+        }
+        return this.state.isHappy
+    }
+
     increaseMood = () => {
-        this.setState((previousState, props) => {
-            return {
-                moodPoints: previousState.moodPoints + 1
-            }
-        }, () => console.log(this.state))
-       
+        this.checkMood()
+        if(this.state.moodPoints >= 10) {
+            this.setState({
+                moodPoints: 1
+            })
+        }
+        else{
+            this.setState((previousState, props) => {
+                return {
+                    moodPoints: previousState.moodPoints + 1
+                }
+            }, () => console.log(this.state))
+        }
     }
 
     handleSetToTen = () => {
         // when setting a value not dependent on previous state, we don't need prevState.
         this.setState({
-            moodPoints: 10
+            moodPoints: 10,
         })
     }
 
@@ -43,7 +60,7 @@ export default class MoodTracker extends Component {
         return (
             <div>
                 <p>On a scale of 1-10</p>
-                <p> You are this happy: {this.state.moodPoints}</p>
+                <p style={{color: this.state.isHappy? 'green' : 'blue'}}> You are this happy: {this.state.moodPoints}</p>
                 <button onClick={this.increaseMood}> Cheer up! </button>
                 <button onClick={this.handleSetToTen}> MAXIMUM CHEER!!!</button>
             </div>
