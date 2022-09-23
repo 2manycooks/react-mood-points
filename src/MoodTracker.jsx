@@ -27,6 +27,11 @@ export default class MoodTracker extends Component {
             this.setState({
                 isHappy: true
             })
+
+        } else {
+            this.setState({
+                isHappy: false
+            })
         }
         return this.state.isHappy
     }
